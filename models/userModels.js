@@ -25,10 +25,15 @@ const userSchema = new Schema({
     required: true,
     minlength: 8,
     select: false,
+    validate: {
+      validator: function (value) {
+        return value.length >= 8;
+      },
+      message: 'Password must be at least 8 characters long',
+    },
   },
   passwordConfirm: {
     type: String,
-    required: true,
     validate: {
       validator: function (el) {
         return el === this.password;
@@ -54,7 +59,7 @@ const validateUser = (user) => {
     photo: Joi.string(),
     role: Joi.string().valid('user', 'author', 'admin').default('user'),
     password: Joi.string().min(8).required(),
-    passwordConfirm: Joi.string().valid(Joi.ref('password')).required(),
+    passwordConfirm: Joi.string().valid(Joi.ref('password')),
   });
   return schema.validate(user);
 };
@@ -88,7 +93,12 @@ userSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword
 ) {
-  return await bcrypt.compare(candidatePassword, userPassword);
+  try {
+    return await bcrypt.compare(candidatePassword, userPassword);
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
 };
 
 userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {

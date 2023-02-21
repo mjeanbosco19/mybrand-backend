@@ -3,6 +3,8 @@ import { promisify } from 'util';
 import User from '../models/userModels.js';
 import catchAsync from '../utils/catchAsync.js';
 import AppError from '../utils/appError.js';
+import crypto from 'crypto';
+const { randomBytes } = crypto;
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -93,19 +95,18 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
   }
 
   // 2) Generate the random reset token
-  const resetToken = createHash('sha256')
+  const resetToken = crypto
+    .createHash('sha256')
     .update(promisify(randomBytes)(32))
     .digest('hex');
 
-  // 3) Update the user's password reset fields
-  user.passwordResetToken = createHash('sha256')
+  user.passwordResetToken = crypto
+    .createHash('sha256')
     .update(resetToken)
     .digest('hex');
+
   user.passwordResetExpires = Date.now() + 10 * 60 * 1000;
   await user.save({ validateBeforeSave: false });
-
-  // 4) Send the reset token to user's email
-  // ... code for sending email ...
 
   // 5) Send the response to client
   createSendToken(user, 200, res);

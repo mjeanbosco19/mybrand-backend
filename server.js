@@ -1,19 +1,13 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 import app from './app.js';
 
 // Load environment variables
 dotenv.config({ path: './config.env' });
 
-// Initialize Express app
-// const app = express();
-
 // Connect to MongoDB database
-const DB = process.env.DATABASE.replace(
-  '<PASSWORD>',
-  process.env.DATABASE_PASSWORD
-);
+const DB = process.env.DATABASE;
 
 if (!process.env.DATABASE) {
   console.log('Error: Database connection string is undefined');
