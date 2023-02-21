@@ -18,6 +18,11 @@ const login = {
   password: 'password123',
 };
 
+const loginWrong = {
+  email: 'testuser@exampliie.com',
+  password: 'password123',
+};
+
 let token;
 
 describe('Authentication endpoints', () => {
@@ -49,6 +54,12 @@ describe('Authentication endpoints', () => {
         .send(login)
         .expect(200);
       token = response.body.token;
+    });
+    test('User should not be able to login', async () => {
+      const response = await request(app)
+        .post('/api/v1/users/login')
+        .send(loginWrong)
+        .expect(500);
     });
     test('User should be deleted', async () => {
       const response = await request(app)

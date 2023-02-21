@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1676975221764" clover="3.2.0">
-  <project timestamp="1676975221764" name="All files">
-    <metrics statements="312" coveredstatements="140" conditionals="86" coveredconditionals="18" methods="61" coveredmethods="20" elements="459" coveredelements="178" complexity="0" loc="312" ncloc="312" packages="6" files="15" classes="15"/>
+<coverage generated="1676979519454" clover="3.2.0">
+  <project timestamp="1676979519454" name="All files">
+    <metrics statements="312" coveredstatements="148" conditionals="86" coveredconditionals="20" methods="61" coveredmethods="22" elements="459" coveredelements="190" complexity="0" loc="312" ncloc="312" packages="6" files="15" classes="15"/>
     <package name="mybrand-backend">
-      <metrics statements="13" coveredstatements="9" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="0"/>
+      <metrics statements="13" coveredstatements="11" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="1"/>
       <file name="app.js" path="/Users/andelarwanda/Desktop/mybrand-backend/app.js">
-        <metrics statements="13" coveredstatements="9" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="0"/>
+        <metrics statements="13" coveredstatements="11" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="1"/>
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
         <line num="23" count="1" type="cond" truecount="1" falsecount="1"/>
@@ -15,16 +15,16 @@
         <line num="31" count="1" type="stmt"/>
         <line num="32" count="1" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
         <line num="41" count="1" type="stmt"/>
         <line num="42" count="0" type="stmt"/>
       </file>
     </package>
     <package name="mybrand-backend.controllers">
-      <metrics statements="181" coveredstatements="54" conditionals="58" coveredconditionals="6" methods="36" coveredmethods="9"/>
+      <metrics statements="181" coveredstatements="55" conditionals="58" coveredconditionals="7" methods="36" coveredmethods="9"/>
       <file name="authController.js" path="/Users/andelarwanda/Desktop/mybrand-backend/controllers/authController.js">
-        <metrics statements="60" coveredstatements="21" conditionals="22" coveredconditionals="6" methods="9" coveredmethods="4"/>
+        <metrics statements="60" coveredstatements="22" conditionals="22" coveredconditionals="7" methods="9" coveredmethods="4"/>
         <line num="8" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
@@ -36,12 +36,12 @@
         <line num="30" count="1" type="stmt"/>
         <line num="32" count="1" type="stmt"/>
         <line num="35" count="1" type="stmt"/>
-        <line num="36" count="1" type="stmt"/>
-        <line num="38" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="36" count="2" type="stmt"/>
+        <line num="38" count="2" type="cond" truecount="3" falsecount="1"/>
         <line num="39" count="0" type="stmt"/>
-        <line num="42" count="1" type="stmt"/>
-        <line num="44" count="1" type="cond" truecount="3" falsecount="1"/>
-        <line num="45" count="0" type="stmt"/>
+        <line num="42" count="2" type="stmt"/>
+        <line num="44" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="45" count="1" type="stmt"/>
         <line num="48" count="1" type="stmt"/>
         <line num="51" count="1" type="stmt"/>
         <line num="53" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -296,8 +296,8 @@
         <line num="82" count="0" type="stmt"/>
         <line num="83" count="0" type="stmt"/>
         <line num="86" count="1" type="stmt"/>
-        <line num="88" count="3" type="stmt"/>
-        <line num="89" count="3" type="stmt"/>
+        <line num="88" count="4" type="stmt"/>
+        <line num="89" count="4" type="stmt"/>
         <line num="92" count="1" type="stmt"/>
         <line num="96" count="1" type="stmt"/>
         <line num="97" count="1" type="stmt"/>
@@ -362,19 +362,19 @@
       </file>
     </package>
     <package name="mybrand-backend.utils">
-      <metrics statements="7" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="2"/>
+      <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="3"/>
       <file name="appError.js" path="/Users/andelarwanda/Desktop/mybrand-backend/utils/appError.js">
-        <metrics statements="5" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
+        <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
       </file>
       <file name="catchAsync.js" path="/Users/andelarwanda/Desktop/mybrand-backend/utils/catchAsync.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="2" count="24" type="stmt"/>
-        <line num="3" count="3" type="stmt"/>
+        <line num="3" count="4" type="stmt"/>
       </file>
     </package>
   </project>
