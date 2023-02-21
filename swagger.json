@@ -9,7 +9,7 @@
       "email": "admin@bosco.io"
     }
   },
-  "host": "http://127.0.0.1:5000",
+  "host": "https://brand-q646.onrender.com",
   "basePath": "/api/v1",
   "schemes": ["https", "http"],
   "paths": {

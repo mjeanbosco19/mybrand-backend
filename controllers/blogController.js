@@ -21,13 +21,7 @@ export const createBlog = catchAsync(async (req, res, next) => {
  * Get all blogs
  */
 export const getAllBlogs = catchAsync(async (req, res, next) => {
-  const features = new APIFeatures(Blog.find(), req.query)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
-
-  const blogs = await features.query;
+  const blogs = await Blog.find();
 
   res.status(200).json({
     status: 'success',
