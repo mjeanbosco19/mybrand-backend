@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: node:19.6.0
     environment:
-      repo_token: lLqKyNNKIgzBau6H5YKe4sS1SgXnA1BKa
+      repo_token: 26XAuHRR3FUgYCUc2hOPoMF4YsS58vtnp
       DATABASE: $CIRCLECI_DATABASE
       JWT_SECRET: $CIRCLECI_JWT_SECRET
       JWT_EXPIRES_IN: 20h
