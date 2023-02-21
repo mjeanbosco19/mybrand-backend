@@ -1,0 +1,445 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "My-brand RESTful API",
+    "description": "A real-world RESTful API and web app with Node.js, Express, MongoDB & More",
+    "contact": {
+      "name": "Jean Bosco Mugiraneza",
+      "email": "admin@bosco.io"
+    }
+  },
+  "host": "http://127.0.0.1:5000",
+  "basePath": "/api/v1",
+  "schemes": ["https", "http"],
+  "paths": {
+    "/users/login": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "User Login",
+        "parameters": [
+          {
+            "name": "User credentials",
+            "in": "body",
+            "description": "Password and email of a user",
+            "required": true,
+            "schema": {
+              "example": {
+                "email": "admin@bosco.io",
+                "password": "Bosco@123!"
+              }
+            }
+          }
+        ],
+        "consumes": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Login succeed"
+          },
+          "404": {
+            "description": "Incorrect credentials"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+
+    "/blogs": {
+      "post": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Blogs"],
+        "summary": "Create a new Blogs",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "name",
+            "description": "A blog must have a title",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "category",
+            "description": "A blog must have a category",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "summary",
+            "description": "A blog must have a description",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "description",
+            "description": "A blog must have a description",
+            "type": "string"
+          },
+          {
+            "name": "imageCover",
+            "in": "formData",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Blog created successfully!"
+          },
+          "422": {
+            "description": "Validation fails"
+          }
+        }
+      },
+      "get": {
+        "summary": "Returns a list of Blogs.",
+        "description": "This will list all created Blogs.",
+        "tags": ["Blogs"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+
+    "/blogs/{blogID}": {
+      "get": {
+        "tags": ["Blogs"],
+        "summary": "Find blog by ID",
+        "description": "Returns a single article",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "blogID",
+            "in": "path",
+            "description": "ID of blog to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Blogs"
+            }
+          },
+          "404": {
+            "description": "Blog not found"
+          }
+        }
+      },
+      "patch": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Blogs"],
+        "summary": "Updates an blog",
+        "description": "Update the blog",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "blogID",
+            "in": "path",
+            "description": "ID of Blog that needs to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "description": "Updated name of the blog",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "summary",
+            "in": "formData",
+            "description": "Updated content of the blog",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "picture",
+            "in": "formData",
+            "description": "Updated file of the blog",
+            "required": false,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "422": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Blogs"],
+        "summary": "Deletes an Blog",
+        "description": "Delete a single Blog",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "blogID",
+            "in": "path",
+            "description": "Blog id to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Blog not found"
+          }
+        }
+      }
+    },
+    "/blogs/{blogId}/comments": {
+      "post": {
+        "tags": ["Blogs"],
+        "summary": "Create a new comment",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "blogId",
+            "in": "path",
+            "description": "ID of blog to comment",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Comment",
+            "description": "Comment Body",
+            "schema": {
+              "$ref": "#/definitions/comment"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Comment added successfully!"
+          },
+          "422": {
+            "description": "Validation fails"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Blogs"],
+        "summary": "Find comment by blog ID",
+        "description": "Returns a all comments for blog ",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "blogId",
+            "in": "path",
+            "description": "ID of blog to return comments",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/comment"
+            }
+          },
+          "404": {
+            "description": "Blog not found"
+          }
+        }
+      }
+    },
+    "/blogs/{blogId}/ratings": {
+      "post": {
+        "tags": ["Blogs"],
+        "summary": "Create a new rating",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "blogId",
+            "in": "path",
+            "description": "ID of blog to rating",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "rating added successfully!"
+          },
+          "422": {
+            "description": "cant find blog Id"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Blogs"],
+        "summary": "Count the ratings per blog",
+        "description": "Returns a all ratings for blog ",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "blogId",
+            "in": "path",
+            "description": "ID of blog to return ratings",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Blogs"
+            }
+          },
+          "404": {
+            "description": "Blog not found"
+          }
+        }
+      }
+    },
+    "/contact": {
+      "post": {
+        "tags": ["Contacts"],
+        "summary": "Create a new Contact",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Contact",
+            "description": "Contact Body",
+            "schema": {
+              "$ref": "#/definitions/Contact"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Article created successfully!"
+          },
+          "422": {
+            "description": "Validation fails"
+          }
+        }
+      },
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "summary": "Returns a list of Contacts.",
+        "description": "This will list all created Contacts.",
+        "tags": ["Contacts"],
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Blogs": {
+      "type": "object",
+      "required": ["name", "summary", "imageCover", "ratings", "ratingdBy"],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "1whw2i2si277e37"
+        },
+        "name": {
+          "type": "string",
+          "example": "This is an article"
+        },
+        "summary": {
+          "type": "string",
+          "example": "These are some contents"
+        },
+        "blogImage": {
+          "type": "string"
+        },
+        "ratings": {
+          "type": "number"
+        },
+        "ratingdBy": {
+          "type": "string"
+        }
+      }
+    },
+
+    "Contact": {
+      "type": "object",
+      "required": ["name", "email", "message"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Ally leandre"
+        },
+        "email": {
+          "type": "string",
+          "example": "leandre@gmail.com"
+        },
+        "message": {
+          "type": "string",
+          "example": "These are some texts"
+        }
+      }
+    },
+    "comment": {
+      "type": "object",
+      "required": ["name", "content"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Ally leandre"
+        },
+        "content": {
+          "type": "string",
+          "example": "This is some comment"
+        }
+      }
+    }
+  }
+}
