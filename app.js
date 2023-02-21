@@ -1,14 +1,16 @@
 import express from 'express';
 import morgan from 'morgan';
-// import blogRouter from './routes/blogRoutes.js';
+import blogRouter from './routes/blogRoutes.js';
 import userRouter from './routes/userRoutes.js';
 // import commentRouter from './routes/commentRoutes.js';
 // import contactRouter from './routes/contactRoutes.js';
 // import viewRouter from './routes/viewRoutes.js';
 import cors from 'cors';
+import dotenv from 'dotenv';
 // import options from './swagger.js';
 // import swaggerJSDoc from 'swagger-jsdoc';
 // import swaggerUi from 'swagger-ui-express';
+dotenv.config();
 const app = express();
 
 // const specs = swaggerJSDoc(options);
@@ -25,6 +27,9 @@ if (process.env.NODE_ENV === 'development') {
 app.use(cors());
 
 app.use(express.json());
+
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/blogs', blogRouter);
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({
@@ -42,8 +47,7 @@ app.use((req, res, next) => {
 
 // ROUTES
 // app.use('/', viewRouter);
-// app.use('/api/v1/blogs', blogRouter);
-app.use('/api/v1/users', userRouter);
+
 // app.use('/api/v1/comments', commentRouter);
 // app.use('/api/v1/contacts', contactRouter);
 

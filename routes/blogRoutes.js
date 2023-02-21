@@ -8,9 +8,6 @@ import {
   getBlog,
   updateBlog,
   deleteBlog,
-  getBlogComments,
-  addBlogLike,
-  removeBlogLike,
 } from '../controllers/blogController.js';
 import { protect, restrictTo } from '../middleware/authMiddleware.js';
 import commentRouter from './commentRoutes.js';
@@ -21,8 +18,8 @@ const router = Router();
 router.use('/:blogId/comments', commentRouter);
 
 // Routes for likes
-router.route('/:id/like').post(protect, addBlogLike);
-router.route('/:id/like').delete(protect, removeBlogLike);
+// router.route('/:id/like').post(protect, addBlogLike);
+// router.route('/:id/like').delete(protect, removeBlogLike);
 
 // Multer storage configuration
 const multerStorage = multer.diskStorage({

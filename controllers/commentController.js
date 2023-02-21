@@ -1,5 +1,5 @@
-import Comment from '../models/commentModel.js';
-import Blog from '../models/blogModel.js';
+import Comment from '../models/commentModels.js';
+import Blog from '../models/blogModels.js';
 import catchAsync from '../utils/catchAsync.js';
 
 // Get all comments for a blog

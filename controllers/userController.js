@@ -4,7 +4,7 @@ import AppError from '../utils/appError.js';
 import { deleteOne, updateOne, createOne, getAll } from './handlerFactory.js';
 import { promisify } from 'util';
 
-import { cloudinaryConfig } from '../config/cloudinaryConfig.js';
+// import { cloudinaryConfig } from '../config/cloudinaryConfig.js';
 
 import { pipeline as pipelineCallback } from 'stream';
 
@@ -99,7 +99,7 @@ export const updateMe = catchAsync(async (req, res, next) => {
 });
 
 export const deleteMe = catchAsync(async (req, res, next) => {
-  await User.findByIdAndUpdate(req.user.id, { active: false });
+  await User.findByIdAndRemove(req.user.id);
 
   res.status(204).json({
     status: 'success',

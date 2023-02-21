@@ -3,7 +3,6 @@ import { protect, restrictTo } from '../middleware/authMiddleware.js';
 import {
   getAllComments,
   createComment,
-  getComment,
   updateComment,
   deleteComment,
 } from '../controllers/commentController.js';
@@ -14,7 +13,6 @@ router.route('/').get(getAllComments).post(protect, createComment);
 
 router
   .route('/:id')
-  .get(getComment)
   .patch(protect, restrictTo('admin', 'author'), updateComment)
   .delete(protect, restrictTo('admin', 'author'), deleteComment);
 

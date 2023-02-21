@@ -1,5 +1,5 @@
-import Blog from '../models/blogModel.js';
-import APIFeatures from '../utils/apiFeatures.js';
+import Blog from '../models/blogModels.js';
+// import APIFeatures from '../utils/apiFeatures.js';
 import catchAsync from '../utils/catchAsync.js';
 import AppError from '../utils/appError.js';
 

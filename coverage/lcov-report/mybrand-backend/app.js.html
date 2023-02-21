@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.72% </span>
+                <span class="strong">69.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/11</span>
+                <span class='fraction'>9/13</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.72% </span>
+                <span class="strong">69.23% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/11</span>
+                <span class='fraction'>9/13</span>
             </div>
         
             
@@ -113,7 +113,11 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -124,6 +128,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,6 +146,9 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -149,7 +158,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -158,22 +167,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import express from 'express';
 import morgan from 'morgan';
-// import blogRouter from './routes/blogRoutes.js';
+import blogRouter from './routes/blogRoutes.js';
 import userRouter from './routes/userRoutes.js';
 // import commentRouter from './routes/commentRoutes.js';
 // import contactRouter from './routes/contactRoutes.js';
 // import viewRouter from './routes/viewRoutes.js';
 import cors from 'cors';
+import dotenv from 'dotenv';
 // import options from './swagger.js';
 // import swaggerJSDoc from 'swagger-jsdoc';
 // import swaggerUi from 'swagger-ui-express';
+dotenv.config();
 const app = express();
 &nbsp;
 // const specs = swaggerJSDoc(options);
@@ -190,6 +200,9 @@ const app = express();
 app.use(cors());
 &nbsp;
 app.use(express.json());
+&nbsp;
+app.use('/api/v1/users', userRouter);
+app.use('/api/v1/blogs', blogRouter);
 app.use(<span class="fstat-no" title="function not covered" >(e</span>rr, req, res, next) =&gt; {
 <span class="cstat-no" title="statement not covered" >  console.error(err.stack);</span>
 <span class="cstat-no" title="statement not covered" >  res.status(500).json({</span>
@@ -198,8 +211,8 @@ app.use(<span class="fstat-no" title="function not covered" >(e</span>rr, req, r
   });
 });
 &nbsp;
-app.use((req, res, next) =&gt; {
-  res.status(404).json({
+app.use(<span class="fstat-no" title="function not covered" >(r</span>eq, res, next) =&gt; {
+<span class="cstat-no" title="statement not covered" >  res.status(404).json({</span>
     status: 'error',
     message: 'Not found',
   });
@@ -207,8 +220,7 @@ app.use((req, res, next) =&gt; {
 &nbsp;
 // ROUTES
 // app.use('/', viewRouter);
-// app.use('/api/v1/blogs', blogRouter);
-app.use('/api/v1/users', userRouter);
+&nbsp;
 // app.use('/api/v1/comments', commentRouter);
 // app.use('/api/v1/contacts', contactRouter);
 &nbsp;
@@ -220,7 +232,7 @@ export default app;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-02-21T01:26:50.387Z
+                at 2023-02-21T10:27:01.723Z
             </div>
         <script src="../prettify.js"></script>
         <script>

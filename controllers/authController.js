@@ -4,6 +4,8 @@ import User from '../models/userModels.js';
 import catchAsync from '../utils/catchAsync.js';
 import AppError from '../utils/appError.js';
 import crypto from 'crypto';
+import dotenv from 'dotenv';
+dotenv.config();
 const { randomBytes } = crypto;
 
 const signToken = (id) => {

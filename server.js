@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import app from './app.js';
 
 // Load environment variables
-dotenv.config({ path: './config.env' });
+dotenv.config();
 
 // Connect to MongoDB database
 const DB = process.env.DATABASE;
