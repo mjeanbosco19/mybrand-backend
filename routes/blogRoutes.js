@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
+import upload from '../config/cloudinaryConfig.js';
 import {
   aliasTopBlogs,
   getAllBlogs,
@@ -22,30 +23,30 @@ router.use('/:blogId/comments', commentRouter);
 // router.route('/:id/like').delete(protect, removeBlogLike);
 
 // Multer storage configuration
-const multerStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'public/img/blogs');
-  },
-  filename: (req, file, cb) => {
-    const ext = file.mimetype.split('/')[1];
-    cb(null, `blog-${req.user.id}-${Date.now()}.${ext}`);
-  },
-});
+// const multerStorage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, 'public/img/blogs');
+//   },
+//   filename: (req, file, cb) => {
+//     const ext = file.mimetype.split('/')[1];
+//     cb(null, `blog-${req.user.id}-${Date.now()}.${ext}`);
+//   },
+// });
 
-// Multer filter configuration
-const multerFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith('image')) {
-    cb(null, true);
-  } else {
-    cb(new Error('Not an image! Please upload only images.'), false);
-  }
-};
+// // Multer filter configuration
+// const multerFilter = (req, file, cb) => {
+//   if (file.mimetype.startsWith('image')) {
+//     cb(null, true);
+//   } else {
+//     cb(new Error('Not an image! Please upload only images.'), false);
+//   }
+// };
 
-// Multer upload configuration
-const upload = multer({
-  storage: multerStorage,
-  fileFilter: multerFilter,
-});
+// // Multer upload configuration
+// const upload = multer({
+//   storage: multerStorage,
+//   fileFilter: multerFilter,
+// });
 
 router.route('/top-5-popular').get(aliasTopBlogs, getAllBlogs);
 

@@ -1,6 +1,7 @@
 import cloudinary from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import multer from 'multer';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -12,8 +13,6 @@ cloudinaryConfig.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export { cloudinaryConfig };
-
 // Configure Cloudinary storage for multer
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary.v2,
@@ -24,8 +23,12 @@ const storage = new CloudinaryStorage({
   },
 });
 
+export { cloudinaryConfig };
+
 // Create multer upload instance
 const upload = multer({ storage });
 
 // Add upload middleware to blog creation route
-router.post('/create', upload.single('imageCover'), createBlog);
+// router.post('/create', upload.single('imageCover'), createBlog);
+
+export default upload;

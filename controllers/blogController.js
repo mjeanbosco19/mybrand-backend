@@ -7,8 +7,8 @@ import AppError from '../utils/appError.js';
  * Create a blog
  */
 export const createBlog = catchAsync(async (req, res, next) => {
+  req.body.imageCover = req.file.path;
   const newBlog = await Blog.create(req.body);
-
   res.status(201).json({
     status: 'success',
     data: {
