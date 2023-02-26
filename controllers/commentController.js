@@ -1,10 +1,20 @@
 import Comment from '../models/commentModels.js';
 import Blog from '../models/blogModels.js';
 import catchAsync from '../utils/catchAsync.js';
+import APIFeatures from '../utils/apiFeatures.js';
 
 // Get all comments for a blog
 export const getAllComments = catchAsync(async (req, res, next) => {
-  const comments = await Comment.find({ blog: req.params.blogId });
+  const features = new APIFeatures(
+    Comment.find({ blog: req.params.blogId }),
+    req.query
+  )
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+
+  const comments = await features.query;
 
   res.status(200).json({
     status: 'success',

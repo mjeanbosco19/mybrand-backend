@@ -1,3 +1,4 @@
+import Joi from 'joi';
 import mongoose from 'mongoose';
 
 const commentSchema = new mongoose.Schema(
@@ -21,10 +22,29 @@ const commentSchema = new mongoose.Schema(
       ref: 'Blog',
       required: [true, 'A comment must belong to a blog'],
     },
-    user: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'User',
-      required: [true, 'A comment must belong to a user'],
+    name: {
+      type: String,
+      required: [true, 'A comment must have a name'],
+      trim: true,
+      minlength: [
+        4,
+        'A comment name must have more or equal then 4 characters',
+      ],
+      maxlength: [
+        125,
+        'A comment name must have less or equal then 125 characters',
+      ],
+    },
+    email: {
+      type: String,
+      required: [true, 'A comment must have an email'],
+      trim: true,
+      lowercase: true,
+      validate: {
+        validator: (value) =>
+          Joi.string().email().validate(value).error === null,
+        message: 'Please provide a valid email address for the comment',
+      },
     },
   },
   {
@@ -32,17 +52,6 @@ const commentSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
-
-commentSchema.index({ blog: 1, user: 1 });
-
-commentSchema.pre(/^find/, function (next) {
-  this.populate({
-    path: 'user',
-    select: 'name photo',
-  });
-
-  next();
-});
 
 const Comment = mongoose.model('Comment', commentSchema);
 
